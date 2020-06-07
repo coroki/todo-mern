@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { TodoItem, ITodoItem } from '../../models/todo-item.model';
+import { TodoItem } from '../../models/todo-item.model';
 
 const router = Router();
 
@@ -9,7 +9,7 @@ const router = Router();
 router.get('/', async (request, response, next) => {
     try {
         const items = await TodoItem.find().sort({ date: -1 });
-        response.json(items);
+        return response.status(200).json(items);
     } catch (error) {
         return next(error);
     }
@@ -40,13 +40,10 @@ router.delete('/:id', async (request, response, next) => {
             return response.status(404);
         }
         await item.remove();
-        return response.status(200).json();
+        return response.status(204).json();
     } catch (error) {
         return next(error);
     }
 });
 
-
 export const TodoItemsRoute = router;
-
-

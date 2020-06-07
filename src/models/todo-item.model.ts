@@ -1,6 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
-export interface ITodoItem extends Document {
+export interface ITodoItem {
+    _id?: string;
     name: string;
     date?: string;
 }
@@ -16,4 +17,4 @@ const schema = new Schema({
     }
 });
 
-export const TodoItem = model<ITodoItem>('todo-item', schema);
+export const TodoItem = model<ITodoItem & Document>('todo-item', schema);
